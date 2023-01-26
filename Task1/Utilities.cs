@@ -11,17 +11,24 @@ namespace Task1
         public static void Sort(int[] numbers)
         {
             int temp;
-            for (int i = 0; i < numbers.Length - 1; i++)
+            if (numbers != null)
             {
-                for (int j = i + 1; j < numbers.Length; j++)
+                for (int i = 0; i < numbers.Length - 1; i++)
                 {
-                    if (numbers[i] > numbers[j])
+                    for (int j = i + 1; j < numbers.Length; j++)
                     {
-                        temp = numbers[j];
-                        numbers[j] = numbers[i];
-                        numbers[i] = temp;
+                        if (numbers[i] > numbers[j])
+                        {
+                            temp = numbers[j];
+                            numbers[j] = numbers[i];
+                            numbers[i] = temp;
+                        }
                     }
                 }
+            }
+            else if (numbers == null)
+            {
+                throw new ArgumentNullException(nameof(numbers));
             }
         }
 
@@ -35,12 +42,35 @@ namespace Task1
         /// otherwise -1.</returns>
         public static int IndexOf(Product[] products, Predicate<Product> predicate)
         {
-            for (int i = 0; i < products.Length - 1; i++)
+            if (predicate == null)
             {
-                var product = products[i++];
-                if (predicate(product))
+                throw new ArgumentNullException(nameof(predicate));
+            };
+            if (products == null)
+            {
+                throw new ArgumentException(nameof(products));
+            };
+
+            if (predicate != null)
+            {
+                for (int i = 0; i < products.Length - 1; i++)
                 {
-                    return --i;
+                    var product = products[i++];
+                    if (predicate(product))
+                    {
+                        return --i;
+                    }
+                }
+            }
+            else if (products != null)
+            {
+                for (int i = 0; i < products.Length - 1; i++)
+                {
+                    var product = products[i++];
+                    if (predicate(product))
+                    {
+                        return --i;
+                    }
                 }
             }
 
