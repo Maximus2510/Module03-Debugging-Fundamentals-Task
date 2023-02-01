@@ -53,15 +53,14 @@ namespace Task1
 
             for (int i = 0; i < products.Length; i++)
             {
-                if (predicate(products[i]))
+                var product = products[i];
+
+                if (predicate(product) || product.Equals(predicate))
                 {
-                    if (i == 2)
-                        return i;
-                    else
-                        continue;
+                    return i;
                 }
             }
-            return -1;
+            return -1; 
         }
     }
 }
